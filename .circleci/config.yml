@@ -1,0 +1,26 @@
+# The deployment section should be excluded until
+# it is explicitly included in module 5
+
+#deployment:
+#  dockerhub:
+#    branch: master
+#    commands:
+#      - $DOCKER_HUB_TRIGGER
+
+
+version: 2.0
+
+jobs:
+  build:
+    steps:
+      - checkout
+      - run: bundle install --path vendor/bundle
+      - run:
+          name: Run tests
+          command: mocha
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
